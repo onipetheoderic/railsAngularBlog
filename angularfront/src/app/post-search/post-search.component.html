@@ -1,0 +1,20 @@
+<div class="text-center">
+	<div class="row align-items-center justify-content-center">
+		<div class="col-md-6">
+
+		<h4> Movie Search </h4>
+		<input class="form-control form-control-sm" #searchBox (keyup)= "search(searchBox.value)">
+
+		 <ul class="collection">
+			<li class="collection-item" *ngFor="let post of posts$ | async">
+				<a routerLink = "/detail/{{post.id}}">
+					{{post.title}} | {{(post.body | slice:0:20)+ '....'}}
+					<!-- to truncate the text to max of 20 characters-->
+				
+				</a>
+			</li>
+			
+		</ul>
+	</div>
+	</div>
+</div>

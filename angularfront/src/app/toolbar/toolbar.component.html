@@ -1,0 +1,38 @@
+<div class="navbar-fixed">
+  <nav  role="navigation">
+    <div class="nav-wrapper blue ">
+      <!-- we make sure the logo is clickabel to take us to the home page -->
+       <a [routerLink]="['']" id="logo-container" class="brand-logo">Rails n Angular Auth</a>
+
+          <ul class="right hide-on-med-and-down">
+            <!-- if the user is not signed In display this -->
+            <!-- if the userSignedIn$ subject is not true displa the login and the register link -->
+            <!-- search -->
+            
+
+              <li *ngIf="!(authService.userSignedIn$ | async)">
+               <a (click)="presentAuthDialog()">LOGIN</a>
+            </li>
+
+              <li *ngIf="!(authService.userSignedIn$ | async)"> 
+                <a (click)="presentAuthDialog('register')">REGISTER</a>
+              </li>
+
+              <li *ngIf="(authService.userSignedIn$ | async)">
+                <a [routerLink]="['/profile']">PROFILE</a>
+              </li>
+
+             <li *ngIf="(authService.userSignedIn$ | async)">
+              <a (click)="logOut()">LOGOUT</a>
+             </li>
+             
+        </ul>
+
+    </div>
+  </nav>
+</div>
+
+<app-auth-dialog #authDialog></app-auth-dialog>
+<!-- #authDialog (line 20) is a reference to the AuthDialogComponent of our ToolbarComponent view, it will allow us to access the AuthDialogComponent class from the ToolbarComponent class. -->
+
+<!-- Now we are using our AuthService’s userSignedIn$ Subject to change the state of the toolbar when user logs in or out, considering that userSignedIn$ is not a simple value, but an asynchrnous stream of values chaning in time, we need to use Angular’s async pipe to listen to its changes (lines 10, 14, 18, 22). We’ll also link the click event on logout button to toobar component’s logOut() method we created earlier (line 15). -->

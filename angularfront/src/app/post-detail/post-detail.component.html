@@ -1,0 +1,37 @@
+<div *ngIf="post" class="container">
+	<h3> You have selected: {{post.title}}</h3>
+	<p>{{post.body}}</p>
+	<h5> The post was created by: {{post.user.email}}</h5>
+	
+
+	<br>
+	<br>
+	<div *ngIf="authTokenService.currentUserData" class="col l8 s12" >
+		<div *ngIf= "authTokenService.currentUserData.id == post.user.id">
+
+		<h5 class="text-center">This post belongs to You, So Proceed with Editing:</h5>
+		<div class="row">
+		 <div class="form-group">	 	
+			<input [(ngModel)] = "post.title" placeholder="title" class="form-control form-control-sm">		
+		</div>
+
+		<div class="form-group">
+		  <input [(ngModel)] = "post.body" placeholder="Post Body" class="form-control form-control-sm">
+		</div>
+
+		<div class="form-group">
+			<button (click)= "save()" class= "waves-effect waves-light btn blue right"> Save </button> 
+		</div>
+
+		</div>
+
+		
+		<button class="waves-effect waves-light btn blue right" title="delete Movie" (click) = delete(post.id)>DeletePost</button>
+
+		</div>
+	</div>
+</div>
+	
+
+
+<button (click)= "goback()" class="waves-effect waves-light btn blue right">Back</button>

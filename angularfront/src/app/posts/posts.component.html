@@ -1,0 +1,78 @@
+<app-post-search></app-post-search>
+
+<div class="col l8 s12" *ngIf="authTokenService.currentUserData">	
+	<h2>Create a Post</h2>
+	<div class="form-group">
+		<input  #postTitle placeholder="Post title" class="form-control">	
+	</div>
+	<div class="form-group">
+		<input #postBody placeholder="Post Body" class="form-control">	
+	</div>
+	<button class="btn btn-success" (click) = "add(postTitle.value, postBody.value); postTitle.value=''; postBody.value=''">Create New Post</button>
+</div>
+	
+<h1 class="col s12"> List of Posts by Users</h1>
+	<div class="col s6" *ngFor="let eachPost of posts">
+		<div class="col s6 m6">
+			<div class="card blue-grey lighten-5">
+				<div class="card-content black-text">
+					<a routerLink = '/detail/{{eachPost.id}}'>
+					<span class="card-title">{{eachPost.title}}</span>
+					</a>
+				  	<p>{{eachPost.body}}</p>
+				</div>
+			<div *ngIf="authTokenService.currentUserData" class="col l8 s12" >
+			<div *ngIf= "authTokenService.currentUserData.id == eachPost.user.id; then thenBlock; else elseBlock">	</div>
+				
+				<ng-template #thenBlock>
+					<div class="card-action">
+					<a routerLink = '/detail/{{eachPost.id}}'>
+					Postedby/createdby:	You
+					</a>
+					<button class="btn-floating btn-small waves-effect waves-light red" title="delete Movie" (click) = delete(eachPost.id)>X</button>
+					</div>
+				</ng-template>
+
+				<ng-template #elseBlock>					
+					<div class="card-action">
+					<a routerLink = '/detail/{{eachPost.id}}'>
+					Postedby/createdby:	{{eachPost.user.email}}
+				    </a>
+				       		
+					</div>
+				</ng-template>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+<footer class="page-footer">
+  <div class="container">
+    <div class="row">
+      <div class="col l6 s12">
+        <h5 class="white-text">Rails and Angular2+</h5>
+        <p class="grey-text text-lighten-4">designed by Theoderic Onipe</p>
+      </div>
+      <div class="col l4 offset-l2 s12">
+        <h5 class="white-text">Links</h5>
+        <ul>
+          <li><a class="grey-text text-lighten-3" href="#!">onipetheoderic@gmail.com</a></li>
+          <li><a class="grey-text text-lighten-3" href="#!">07039148866</a></li>
+          <li><a class="grey-text text-lighten-3" href="https://github.com/onipetheoderic">GitHub page</a></li>
+         
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="footer-copyright">
+    <div class="container">
+    © 2014 Copyright ONIPE Theoderic Ohinoyi
+    <a class="grey-text text-lighten-4 right" href="https://quickcvmaker.herokuapp.com">checkOut Quick CV maker</a>
+    </div>
+  </div>
+</footer>
+    
+
+<!-- ngIf currentUser = eachPost.id -->

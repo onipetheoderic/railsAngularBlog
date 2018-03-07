@@ -1,0 +1,45 @@
+
+<form (ngSubmit)="onSignInSubmit()" #f="ngForm" >
+<!-- the default Submit method to use for this form is the onSignInSubmit method -->
+
+  <div class="row">
+
+    <div class="input-field col s12">
+      <input id="email"
+             type="email"
+             required
+             name='email' 
+             [(ngModel)]="signInUser.email" 
+             class="validate">
+      
+      <label for="email">Email</label>
+    </div>
+
+<!-- we use the signInUser Object to get the Email and the password, we initialize a two way data binding -->
+<!-- So after submitting it to the backend Object property by ngModel 2-way data binding -->
+    <div class="input-field col s12">
+      <input id="password" 
+             type="password" 
+             required  
+             name='password' 
+             [(ngModel)]="signInUser.password" 
+             class="validate">
+      
+      <label for="password">Password</label>
+    </div>
+<!-- disabled if f which is the ngForm is not valid -->
+    <div class="col s12 ">
+      <button type="submit" 
+              [disabled]="!(f.valid)" 
+              [ngClass]="{'disabled': !(f.valid)}" 
+              class="waves-effect waves-light btn blue right"
+      > 
+        Login </button>
+    </div>
+
+
+  </div>
+
+</form>
+
+<!-- We have two text inputs (email & password) both of which are required for form to have a valid state. We are using Angular’s two way data binding on line 8 and 18 to bind the input values to signInUser object in our component class, which means the values will be updated when they are modified in the HTML form by the user, and also updated in the view if they are modified programatically in the component class. -->
